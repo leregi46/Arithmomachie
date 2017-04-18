@@ -8,12 +8,6 @@
 #include <allegro5/allegro_primitives.h>
 #define LONGUEUR_ECHIQUIER_X 327.5
 #define LONGUEUR_ECHIQUIER_Y 635
-/*#define LONG_CASE_X (LONGUEUR_ECHIQUIER_X/8)
-#define LONG_CASE_Y (LONGUEUR_ECHIQUIER_Y/16)*/
-
-
-    //float LONG_CASE_Y = 39.062;
-
 
 int init_bibliotheque(void){
   if(!al_init())
@@ -37,7 +31,6 @@ void dessiner_fenetre(const char *titre, int largeur, int hauteur)
   al_clear_to_color(al_map_rgb(85,85,85));
   al_init_primitives_addon();
   dessiner_echiquier();
-  //generer_fenetre_case(x1,y1,x2,y2,LONG_CASE);
   generer_fenetre_case();
   al_flip_display();
   al_rest(6000);
@@ -56,24 +49,6 @@ void dessiner_echiquier(){
     ALLEGRO_COLOR couleur = al_map_rgba(12,45,69,241);
     al_draw_rectangle(x1,y1,x2,y2,couleur,epp);
 }
-/*
-void dessiner_fenetre_case(float x1, float y1, float x2, float y2){
-   al_init_primitives_addon();
-   float largeur_prim = 317.5;
-   float hauteur_prim = 615;
-   float largeur1 = 1240;
-   float hauteur1 = 750;
-   float LONG_CASE = 50.94;
-   float x1 = (largeur1-largeur_prim)/2;
-   float y1 = (hauteur1-hauteur_prim)/2;
-   float x2 = x1 + LONG_CASE ;
-   float y2 = y1 + LONG_CASE;
-    float epp = 2;
-
-    ALLEGRO_COLOR couleur = al_map_rgba(12,45,69,241);
-    al_draw_rectangle(x1,y1,x2,y2,couleur,epp);
-}
-*/
 
 void generer_fenetre_case(){
 	
@@ -108,15 +83,13 @@ void generer_fenetre_case(){
   			y_b=y_b;
 
   		}
-
-
-    
-    if((colonne%2==0)&&!(ligne%2==0))
-    	al_draw_filled_rectangle(x_a,y_a,x_b,y_b,couleur);
-    else if(!(colonne%2==0)&&(ligne%2==0))
-    	al_draw_filled_rectangle(x_a,y_a,x_b,y_b,couleur);
-    else
-        al_draw_rectangle(x_a,y_a,x_b,y_b,couleur,epp);
+	
+	if((colonne%2==0)&&!(ligne%2==0))
+    		al_draw_filled_rectangle(x_a,y_a,x_b,y_b,couleur);
+    	else if(!(colonne%2==0)&&(ligne%2==0))
+    		al_draw_filled_rectangle(x_a,y_a,x_b,y_b,couleur);
+    	else
+        	al_draw_rectangle(x_a,y_a,x_b,y_b,couleur,epp);
   	}
   }
 }

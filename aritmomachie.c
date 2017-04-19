@@ -9,6 +9,12 @@
 #define LONGUEUR_ECHIQUIER_X 327.5
 #define LONGUEUR_ECHIQUIER_Y 635
 
+
+typedef struct{
+  float x;
+  float y;
+}Position;
+
 int init_bibliotheque(void){
   if(!al_init())
   {
@@ -32,6 +38,7 @@ void dessiner_fenetre(const char *titre, int largeur, int hauteur)
   al_init_primitives_addon();
   dessiner_echiquier();
   generer_fenetre_case();
+  dessiner_point();
   al_flip_display();
   al_rest(6000);
   al_destroy_display(ecran);
@@ -51,7 +58,7 @@ void dessiner_echiquier(){
 }
 
 void generer_fenetre_case(){
-	
+
    float largeur_prim = 307.5;
    float hauteur_prim = 615;
    float largeur1 = 1240;
@@ -83,7 +90,7 @@ void generer_fenetre_case(){
   			y_b=y_b;
 
   		}
-	
+
 	if((colonne%2==0)&&!(ligne%2==0))
     		al_draw_filled_rectangle(x_a,y_a,x_b,y_b,couleur);
     	else if(!(colonne%2==0)&&(ligne%2==0))
@@ -92,6 +99,49 @@ void generer_fenetre_case(){
         	al_draw_rectangle(x_a,y_a,x_b,y_b,couleur,epp);
   	}
   }
+}
+
+
+void dessiner_point(){
+    float largeur_prim = 307.5;
+   float hauteur_prim = 615;
+   float largeur1 = 1240;
+   float hauteur1 = 750;
+   float LONG_CASE = 38.4375;
+   float x1 = (largeur1-largeur_prim)/2;
+   float y1 = (hauteur1-hauteur_prim)/2;
+   float x2 = x1 + LONG_CASE ;
+   float y2 = y1 + LONG_CASE;
+   float a=0, b=0;
+    ALLEGRO_COLOR couleur = al_map_rgba(255,0,0,0);
+    Position position[8][16]={0,0};
+    int i, j;
+    float first_x1=x1;
+    float first_x2=x2;
+
+    float x=x1+LONG_CASE/2;
+    float y=y1+LONG_CASE/2;
+    const float const_x=x;
+    const float const_y=y;
+
+    for(j=0;j<16;j++){
+        if(j!=0){
+             x=const_x;
+             y=y+LONG_CASE;
+           }
+    for(i=0;i<8;i++){
+          if(i!=0){
+            x=x+LONG_CASE;
+          
+        }
+        
+        
+          position[i][j].x=x;
+          position[i][j].y=y;
+          al_draw_circle(x,y,2,couleur,2);
+          printf("Position[%d][%d]={%f,%f}\n",i,j,x,y);
+      }
+    }
 }
 
 int main(int argc, char const *argv[])
